@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Arsal Bank — Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Arsal Bank home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"/><path d="M5 21V10m4 11V10m6 11V10m4 11V10"/><path d="m12 3 9 5H3l9-5Z"/>
+          </svg>
+        </span>
+        <span class="brand-text"><span>Arsal</span><strong>Bank</strong></span>
+      </a>
+
+      <nav class="nav" aria-label="Sections">
+        <a class="nav-link active" href="#overview" data-nav>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/>
+            <rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
+          </svg>
+          <span>Overview</span>
+        </a>
+        <a class="nav-link" href="#customers" data-nav>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Customers</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="dot" aria-hidden="true"></span>
+        <strong>In-memory session</strong>
+        <p>Customers and balances reset when the server stops.</p>
+      </div>
+
+      <div class="sidebar-foot">
+        <span>Total balance</span>
+        <strong id="side-balance">$0</strong>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar" id="overview">
+        <div class="topbar-copy">
+          <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Live branch overview</p>
+          <h1>Good to see you.</h1>
+          <p class="subtitle">Manage customers, open accounts and move money — all in one place.</p>
+        </div>
+        <button class="btn btn-primary" id="new-customer" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          New customer
+        </button>
+      </header>
+
+      <section class="stats" aria-label="Bank summary">
+        <article class="stat green">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div class="stat-body">
+            <span class="stat-label">Customers</span>
+            <strong class="stat-value" data-stat="customers">0</strong>
+            <span class="stat-hint">Active profiles</span>
+          </div>
+        </article>
+
+        <article class="stat violet">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><path d="M6 15h4"/>
+            </svg>
+          </span>
+          <div class="stat-body">
+            <span class="stat-label">Accounts</span>
+            <strong class="stat-value" data-stat="accounts">0</strong>
+            <span class="stat-hint">Open accounts</span>
+          </div>
+        </article>
+
+        <article class="stat cyan">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>
+            </svg>
+          </span>
+          <div class="stat-body">
+            <span class="stat-label">Total balance</span>
+            <strong class="stat-value" data-stat="balance" data-money>0</strong>
+            <span class="stat-hint">Across all accounts</span>
+          </div>
+        </article>
+
+        <article class="stat amber">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 17 6-6 4 4 8-8"/><path d="M17 7h4v4"/>
+            </svg>
+          </span>
+          <div class="stat-body">
+            <span class="stat-label">Average balance</span>
+            <strong class="stat-value" data-stat="average" data-money>0</strong>
+            <span class="stat-hint">Per account</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" id="customers" aria-labelledby="customers-title">
+        <header class="panel-head">
+          <div>
+            <h2 id="customers-title">Customers</h2>
+            <p class="muted" id="customer-summary">Loading…</p>
+          </div>
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/>
+            </svg>
+            <input id="search" type="search" placeholder="Search by name or ID…" autocomplete="off" aria-label="Search customers">
+          </label>
+        </header>
+
+        <div id="customer-grid" class="customer-grid" aria-live="polite"></div>
+
+        <div id="empty" class="empty" hidden>
+          <div class="empty-art" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="12" width="44" height="40" rx="10"/>
+              <path d="M20 24h24"/><path d="M20 33h14"/><path d="M20 42h9"/>
+              <circle cx="46" cy="42" r="6" fill="rgba(52,211,153,.15)"/>
+            </svg>
+          </div>
+          <h3 id="empty-title">No customers yet</h3>
+          <p id="empty-text">Add your first customer to open a profile, create accounts and start moving money.</p>
+          <button class="btn btn-primary" id="empty-add" type="button">Add your first customer</button>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>Bank Management System</span>
+        <span class="foot-dot" aria-hidden="true"></span>
+        <span>Flask + vanilla JS</span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="modal-layer" id="modal-layer" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <header class="modal-head">
+        <h3 id="modal-title"></h3>
+        <button class="icon-btn" id="modal-close" type="button" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </header>
+      <form id="modal-form" novalidate>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div id="modal-fields"></div>
+        <footer class="modal-foot">
+          <button class="btn btn-ghost" id="modal-cancel" type="button">Cancel</button>
+          <button class="btn btn-primary" id="modal-submit" type="submit">Confirm</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast-stack" id="toast-stack" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p class="noscript">This dashboard needs JavaScript enabled to manage customers.</p>
+  </noscript>
+</body>
+</html>

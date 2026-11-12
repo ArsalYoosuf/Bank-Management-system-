@@ -1,0 +1,5 @@
+# Bank Management System
+# The CLI (main.py) uses only the standard library.
+# The web dashboard (app.py) needs Flask.
+
+Flask>=3.0,<4.0
